@@ -5,6 +5,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 using System.Threading.Tasks;
 using DG.Tweening;
 using Photon.Pun;
+using System;
 
 public class BulletController : MonoBehaviour
 {
@@ -20,7 +21,6 @@ public class BulletController : MonoBehaviour
     private void Start()
     {
         startingRadius = light2D.pointLightOuterRadius;
-        FadeOut();
     }
 
     async void FadeOut()
@@ -31,6 +31,13 @@ public class BulletController : MonoBehaviour
             light2D.pointLightOuterRadius = startingRadius * (1 - (Time.time - startTime)/fadeTime);
             await Task.Yield();
         }
-        gameObject.SetActive(false);
+        try
+        {
+            gameObject.SetActive(false);
+        }
+        catch(Exception e)
+        {
+
+        }
     }
 }
